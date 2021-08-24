@@ -118,7 +118,6 @@ a.brand {
 
 .row.center {
   justify-content: center;
-
 }
 
 .row.top {
@@ -127,6 +126,7 @@ a.brand {
 
 .col-1 {
   flex: 1 1 25rem;
+  align-self: flex-start;
 }
 
 .col-2 {
@@ -144,6 +144,7 @@ img.medium {
 }
 
 img.large {
+  max-width: 45rem;
   width: 100%;
 }
 
