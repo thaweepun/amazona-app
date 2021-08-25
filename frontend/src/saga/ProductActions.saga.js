@@ -13,8 +13,8 @@ const apiListProducts = async () => {
   return await axios.get("/api/products");
 };
 
-const apiDetailProduct = async (payload) => {
-  return await axios.get(`/api/products/${payload}`);
+const apiDetailProduct = async (productId) => {
+  return await axios.get(`/api/products/${productId}`);
 };
 
 export function* listProduct() {

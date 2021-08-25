@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
-
 import Product from "../components/Product";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { useDispatch, useSelector } from "react-redux";
-// import { listProduct } from "../actions/ProductActions";
 import { PRODUCT_LIST_REQUEST } from "../constants/ProductConstants";
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
-  // const action = (type, payload) => dispatch({ type, payload });
   const action = (type) => dispatch({ type });
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
-
-  // useEffect(() => {
-  //   dispatch(listProduct());
-  // }, [dispatch]);
 
   useEffect(() => {
     action(PRODUCT_LIST_REQUEST);

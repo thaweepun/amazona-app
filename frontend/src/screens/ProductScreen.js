@@ -6,12 +6,13 @@ import MessageBox from "../components/MessageBox";
 import LoadingBox from "../components/LoadingBox";
 import { PRODUCT_DETAILS_REQUEST } from "../constants/ProductConstants";
 
-export default function ProductScreen(props) {
-  const dispatch = useDispatch();
-  const action = (type, payload) => dispatch({ type, payload });
-
+export default function ProductScreen(props) { 
   const [qty, setQty] = useState(1);
-  const productId = props.match.params.id;
+  const productId = props.match.params.id;  
+
+  const dispatch = useDispatch();
+  const action = (type, payload) => dispatch({ type, payload });  
+
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
