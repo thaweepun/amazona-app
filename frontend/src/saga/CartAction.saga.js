@@ -8,8 +8,8 @@ const apiAddToCart = async (productId) => {
 };
 
 export function* addToCart({ payload }) {
-  const { productId, qty } = payload;
-  const { data } = yield call(apiAddToCart, productId);
+  const { id, qty } = payload;
+  const { data } = yield call(apiAddToCart, id);
   yield put({
     type: CART_ADD_ITEM,
     payload: {
