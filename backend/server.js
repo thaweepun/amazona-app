@@ -1,11 +1,17 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import data from "./data.js";
 import userRouter from "./routers/UserRouter.js";
 import productRouter from "./routers/ProductRouter.js";
 
+dotenv.config();
+
 const app = express();
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 mongoose
   .connect(process.env.MONGODB_URL || "mongodb://localhost/amazona", {
     useNewUrlParser: true,
