@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import data from "./data.js";
 import userRouter from "./routers/UserRouter.js";
+import productRouter from "./routers/ProductRouter.js";
 
 const app = express();
 mongoose.Promise = global.Promise;
@@ -21,6 +22,7 @@ mongoose
   );
 
 app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is ready");
