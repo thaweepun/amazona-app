@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { CART_ADD_ITEM } from "../constants/CartConstants";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/CartConstants";
 import store from "../store";
 import axios from "axios";
 
@@ -21,6 +21,17 @@ export function* addToCart({ payload }) {
       qty,
     },
   });
+
+  localStorage.setItem(
+    "cartItems",
+    JSON.stringify(store.getState().cart.cartItems)
+  );
+}
+
+export function* removeFromCart({ payload }) {
+console.log(payload.id)
+
+  yield put({ type: CART_REMOVE_ITEM, payload: payload.id });
 
   localStorage.setItem(
     "cartItems",
