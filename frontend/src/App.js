@@ -5,6 +5,7 @@ import { USER_SIGNOUT_REQUEST } from "./constants/UserConstants";
 import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import SigninScreen from "./screens/SigninScreen";
 
 function App() {
@@ -43,7 +44,9 @@ function App() {
                   {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
                 </Link>
                 <ul className="dropdown-content">
-                  <Link to="#signout" onClick={signoutHandler}>Sign Out</Link>
+                  <Link to="#signout" onClick={signoutHandler}>
+                    Sign Out
+                  </Link>
                 </ul>
               </div>
             ) : (
@@ -55,6 +58,7 @@ function App() {
         <main>
           <Route path="/" component={HomeScreen} exact></Route>
           <Route path="/signin" component={SigninScreen}></Route>
+          <Route path="/register" component={RegisterScreen}></Route>
           <Route path="/product/:id" component={ProductScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>
         </main>

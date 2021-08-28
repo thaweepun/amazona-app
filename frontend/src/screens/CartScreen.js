@@ -33,7 +33,7 @@ export default function CartScreen(props) {
     action(CART_REMOVE_ITEM_REQUEST, { id });
   };
 
-  const checkoutHandler = (id) => {
+  const checkoutHandler = () => {
     props.history.push("/signin?redirect=shipping");
   };
 

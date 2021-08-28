@@ -8,7 +8,10 @@ import {
   productDetailsReducer,
 } from "./reducers/ProductReducers";
 import { cartReducer } from "./reducers/CartReducers";
-import { userSigninReducer } from "./reducers/UserSigninReducers";
+import {
+  userSigninReducer,
+  userRegisterReducer,
+} from "./reducers/UserReducers";
 import rootSaga from "./saga";
 
 const initialState = {
@@ -29,6 +32,7 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userSignin: userSigninReducer,
+  userRegister: userRegisterReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
