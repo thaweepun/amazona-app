@@ -18,6 +18,8 @@ import {
 import { listProduct, detailProduct } from "./ProductActions.saga";
 import { addToCart, removeFromCart, savePayment, saveShippingAddress } from "./CartAction.saga";
 import { register, signin, signout } from "./UserAction.saga";
+import { ORDER_CREATE_REQUEST } from "../constants/OrderConstants";
+import { createOrder } from "./OrderAction.saga";
 
 function* watchListProduct() {
   yield takeEvery(PRODUCT_LIST_REQUEST, listProduct);
@@ -55,6 +57,10 @@ function* watchSavePayment() {
   yield takeEvery(CART_SAVE_PAYMENT_REQUEST, savePayment);
 }
 
+function* watchCreateOrder() {
+  yield takeEvery(ORDER_CREATE_REQUEST, createOrder);
+}
+
 export default function* rootSaga() {
   yield all([
     watchListProduct(),
@@ -65,6 +71,7 @@ export default function* rootSaga() {
     watchSignout(),
     watchRegister(),
     watchSaveShippingAddress(),
-    watchSavePayment()
+    watchSavePayment(),
+    watchCreateOrder()
   ]);
 }

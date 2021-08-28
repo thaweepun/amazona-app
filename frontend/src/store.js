@@ -13,6 +13,7 @@ import {
   userRegisterReducer,
 } from "./reducers/UserReducers";
 import rootSaga from "./saga";
+import { orderCreateReducer } from "./reducers/OrderReducers";
 
 const initialState = {
   userSignin: {
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   cart: cartReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
+  orderCreate: orderCreateReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
