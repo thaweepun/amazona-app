@@ -7,6 +7,8 @@ import {
   ORDER_DETAIL_FAIL,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
+  ORDER_MINE_LIST_SUCCESS,
+  ORDER_MINE_LIST_FAIL,
 } from "../constants/OrderConstants";
 import store from "../store";
 import axios from "axios";
@@ -30,8 +32,20 @@ const apiDetailOrder = async (orderId) => {
   const {
     userSignin: { userInfo },
   } = store.getState();
-  return await axios.get(
-    `/api/orders/${orderId}`,
+  return await axios.get(`/api/orders/${orderId}`, {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  });
+};
+
+const apiPayOrder = async (payload) => {
+  const {
+    userSignin: { userInfo },
+  } = store.getState();
+  return await axios.put(
+    `/api/orders/${payload.order._id}/pay`,
+    payload.paymentResult,
     {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -40,18 +54,15 @@ const apiDetailOrder = async (orderId) => {
   );
 };
 
-const apiPayOrder = async (payload) => {
+const apiListOrderMine = async () => {
   const {
     userSignin: { userInfo },
   } = store.getState();
-  return await axios.put(
-    `/api/orders/${payload.order._id}/pay`, payload.paymentResult,
-    {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
-  );
+  return await axios.get("/api/orders/mine", {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  });
 };
 
 export function* createOrder({ payload }) {
@@ -70,7 +81,6 @@ export function* createOrder({ payload }) {
     });
   }
 }
-
 
 export function* detailOrder({ payload }) {
   try {
@@ -94,6 +104,21 @@ export function* payOrder({ payload }) {
   } catch (error) {
     yield put({
       type: ORDER_PAY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
+export function* listOrderMine() {
+  try {
+    const { data } = yield call(apiListOrderMine);
+    yield put({ type: ORDER_MINE_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    yield put({
+      type: ORDER_MINE_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

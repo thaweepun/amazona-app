@@ -23,8 +23,18 @@ import {
   saveShippingAddress,
 } from "./CartAction.saga";
 import { register, signin, signout } from "./UserAction.saga";
-import { ORDER_CREATE_REQUEST, ORDER_DETAIL_REQUEST, ORDER_PAY_REQUEST } from "../constants/OrderConstants";
-import { createOrder, detailOrder, payOrder } from "./OrderAction.saga";
+import {
+  ORDER_CREATE_REQUEST,
+  ORDER_DETAIL_REQUEST,
+  ORDER_MINE_LIST_REQUEST,
+  ORDER_PAY_REQUEST,
+} from "../constants/OrderConstants";
+import {
+  createOrder,
+  detailOrder,
+  listOrderMine,
+  payOrder,
+} from "./OrderAction.saga";
 
 function* watchListProduct() {
   yield takeEvery(PRODUCT_LIST_REQUEST, listProduct);
@@ -74,6 +84,10 @@ function* watchPayOrder() {
   yield takeEvery(ORDER_PAY_REQUEST, payOrder);
 }
 
+function* watchListOrderMine() {
+  yield takeEvery(ORDER_MINE_LIST_REQUEST, listOrderMine);
+}
+
 export default function* rootSaga() {
   yield all([
     watchListProduct(),
@@ -88,5 +102,6 @@ export default function* rootSaga() {
     watchCreateOrder(),
     watchDetailOrder(),
     watchPayOrder(),
+    watchListOrderMine(),
   ]);
 }
