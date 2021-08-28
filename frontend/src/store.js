@@ -11,6 +11,7 @@ import { cartReducer } from "./reducers/CartReducers";
 import {
   userSigninReducer,
   userRegisterReducer,
+  userDetailsReducer,
 } from "./reducers/UserReducers";
 import rootSaga from "./saga";
 import { orderCreateReducer, orderDetailReducer, orderMineListReducer, orderPayReducer } from "./reducers/OrderReducers";
@@ -42,6 +43,7 @@ const reducer = combineReducers({
   orderDetails: orderDetailReducer,
   orderPay: orderPayReducer,
   orderMineList : orderMineListReducer,
+  userDetails : userDetailsReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

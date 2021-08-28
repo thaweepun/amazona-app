@@ -5,7 +5,10 @@ import {
   USER_SIGNOUT,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
 } from "../constants/UserConstants";
+import store from "../store";
 import axios from "axios";
 
 const apiSignin = async (payload) => {
@@ -20,6 +23,17 @@ const apiRegister = async (payload) => {
     name: payload.name,
     email: payload.email,
     password: payload.password,
+  });
+};
+
+const apiDetailUser = async (userId) => {
+  const {
+    userSignin: { userInfo },
+  } = store.getState();
+  return await axios.get(`/api/users/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
   });
 };
 
@@ -61,4 +75,19 @@ export function* signout() {
   localStorage.removeItem("cartItems");
   localStorage.removeItem("shippingAddress");
   yield put({ type: USER_SIGNOUT });
+}
+
+export function* detailUser({ payload }) {
+  try {
+    const { data } = yield call(apiDetailUser, payload);
+    yield put({ type: USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    yield put({
+      type: USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 }

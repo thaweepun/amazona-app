@@ -10,6 +10,7 @@ import {
   CART_SAVE_SHIPPING_ADDRESS_REQUEST,
 } from "../constants/CartConstants";
 import {
+  USER_DETAILS_REQUEST,
   USER_REGISTER_REQUEST,
   USER_SIGNIN_REQUEST,
   USER_SIGNOUT_REQUEST,
@@ -22,7 +23,7 @@ import {
   savePayment,
   saveShippingAddress,
 } from "./CartAction.saga";
-import { register, signin, signout } from "./UserAction.saga";
+import { detailUser, register, signin, signout } from "./UserAction.saga";
 import {
   ORDER_CREATE_REQUEST,
   ORDER_DETAIL_REQUEST,
@@ -88,6 +89,10 @@ function* watchListOrderMine() {
   yield takeEvery(ORDER_MINE_LIST_REQUEST, listOrderMine);
 }
 
+function* watchDetailUser() {
+  yield takeEvery(USER_DETAILS_REQUEST, detailUser);
+}
+
 export default function* rootSaga() {
   yield all([
     watchListProduct(),
@@ -103,5 +108,6 @@ export default function* rootSaga() {
     watchDetailOrder(),
     watchPayOrder(),
     watchListOrderMine(),
+    watchDetailUser(),
   ]);
 }
