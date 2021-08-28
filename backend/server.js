@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import data from "./data.js";
 import userRouter from "./routers/UserRouter.js";
 import productRouter from "./routers/ProductRouter.js";
+import orderRouter from "./routers/OrderRouter.js";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ mongoose
 
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is ready");
