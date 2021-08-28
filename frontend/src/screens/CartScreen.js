@@ -13,11 +13,12 @@ export default function CartScreen(props) {
     ? Number(props.location.search.split("=")[1])
     : 1;
 
+  const dispatch = useDispatch();
+  const action = (type, payload) => dispatch({ type, payload });
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  const dispatch = useDispatch();
-  const action = (type, payload) => dispatch({ type, payload });
   const actionAddItem = (id, qty) => {
     action(CART_ADD_ITEM_REQUEST, { id, qty });
   };

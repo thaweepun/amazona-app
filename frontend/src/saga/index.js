@@ -3,9 +3,18 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_DETAILS_REQUEST,
 } from "../constants/ProductConstants";
-import { CART_ADD_ITEM_REQUEST, CART_REMOVE_ITEM_REQUEST } from "../constants/CartConstants";
+import {
+  CART_ADD_ITEM_REQUEST,
+  CART_REMOVE_ITEM_REQUEST,
+} from "../constants/CartConstants";
+import {
+  USER_SIGNIN_REQUEST,
+  USER_SIGNOUT_REQUEST,
+} from "../constants/UserConstants";
+
 import { listProduct, detailProduct } from "./ProductActions.saga";
 import { addToCart, removeFromCart } from "./CartAction.saga";
+import { signin, signout } from "./UserAction.saga";
 
 function* watchListProduct() {
   yield takeEvery(PRODUCT_LIST_REQUEST, listProduct);
@@ -23,6 +32,21 @@ function* watchRemoveFromCart() {
   yield takeEvery(CART_REMOVE_ITEM_REQUEST, removeFromCart);
 }
 
+function* watchSignin() {
+  yield takeEvery(USER_SIGNIN_REQUEST, signin);
+}
+
+function* watchSignout() {
+  yield takeEvery(USER_SIGNOUT_REQUEST, signout);
+}
+
 export default function* rootSaga() {
-  yield all([watchListProduct(), watchDetailProduct(), watchAddToCart(), watchRemoveFromCart()]);
+  yield all([
+    watchListProduct(),
+    watchDetailProduct(),
+    watchAddToCart(),
+    watchRemoveFromCart(),
+    watchSignin(),
+    watchSignout(),
+  ]);
 }
