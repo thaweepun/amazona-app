@@ -13,7 +13,7 @@ import {
   userRegisterReducer,
 } from "./reducers/UserReducers";
 import rootSaga from "./saga";
-import { orderCreateReducer, orderDetailReducer } from "./reducers/OrderReducers";
+import { orderCreateReducer, orderDetailReducer, orderPayReducer } from "./reducers/OrderReducers";
 
 const initialState = {
   userSignin: {
@@ -40,6 +40,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailReducer,
+  orderPay: orderPayReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
