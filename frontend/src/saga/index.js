@@ -6,6 +6,7 @@ import {
 import {
   CART_ADD_ITEM_REQUEST,
   CART_REMOVE_ITEM_REQUEST,
+  CART_SAVE_PAYMENT_REQUEST,
   CART_SAVE_SHIPPING_ADDRESS_REQUEST,
 } from "../constants/CartConstants";
 import {
@@ -15,7 +16,7 @@ import {
 } from "../constants/UserConstants";
 
 import { listProduct, detailProduct } from "./ProductActions.saga";
-import { addToCart, removeFromCart, saveShippingAddress } from "./CartAction.saga";
+import { addToCart, removeFromCart, savePayment, saveShippingAddress } from "./CartAction.saga";
 import { register, signin, signout } from "./UserAction.saga";
 
 function* watchListProduct() {
@@ -50,6 +51,10 @@ function* watchSaveShippingAddress() {
   yield takeEvery(CART_SAVE_SHIPPING_ADDRESS_REQUEST, saveShippingAddress);
 }
 
+function* watchSavePayment() {
+  yield takeEvery(CART_SAVE_PAYMENT_REQUEST, savePayment);
+}
+
 export default function* rootSaga() {
   yield all([
     watchListProduct(),
@@ -60,5 +65,6 @@ export default function* rootSaga() {
     watchSignout(),
     watchRegister(),
     watchSaveShippingAddress(),
+    watchSavePayment()
   ]);
 }

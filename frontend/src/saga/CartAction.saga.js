@@ -7,6 +7,7 @@ import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT,
 } from "../constants/CartConstants";
 import store from "../store";
 import axios from "axios";
@@ -47,6 +48,10 @@ export function* removeFromCart({ payload }) {
 }
 
 export function* saveShippingAddress({ payload }) {
-  yield put({ type: CART_SAVE_SHIPPING_ADDRESS, payload: { payload } });
-  localStorage.setItem("shippingAddress", JSON.stringify({ payload }));
+  yield put({ type: CART_SAVE_SHIPPING_ADDRESS, payload: payload });
+  localStorage.setItem("shippingAddress", JSON.stringify(payload));
+}
+
+export function* savePayment({ payload }) {
+  yield put({ type: CART_SAVE_PAYMENT, payload: payload });
 }

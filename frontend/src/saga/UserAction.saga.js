@@ -59,5 +59,6 @@ export function* signin({ payload }) {
 export function* signout() {
   localStorage.removeItem("userInfo");
   localStorage.removeItem("cartItems");
+  localStorage.removeItem("shippingAddress");
   yield put({ type: USER_SIGNOUT });
 }
