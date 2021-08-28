@@ -1,5 +1,13 @@
-import { call, put, delay } from "redux-saga/effects";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/CartConstants";
+import {
+  call,
+  put,
+  //delay
+} from "redux-saga/effects";
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from "../constants/CartConstants";
 import store from "../store";
 import axios from "axios";
 
@@ -29,11 +37,16 @@ export function* addToCart({ payload }) {
 }
 
 export function* removeFromCart({ payload }) {
-  yield delay(1000);
+  // yield delay(1000);
   yield put({ type: CART_REMOVE_ITEM, payload: payload.id });
 
   localStorage.setItem(
     "cartItems",
     JSON.stringify(store.getState().cart.cartItems)
   );
+}
+
+export function* saveShippingAddress({ payload }) {
+  yield put({ type: CART_SAVE_SHIPPING_ADDRESS, payload: { payload } });
+  localStorage.setItem("shippingAddress", JSON.stringify({ payload }));
 }
