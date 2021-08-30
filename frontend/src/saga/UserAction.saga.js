@@ -7,6 +7,8 @@ import {
   USER_REGISTER_FAIL,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
 } from "../constants/UserConstants";
 import store from "../store";
 import axios from "axios";
@@ -31,6 +33,17 @@ const apiDetailUser = async (userId) => {
     userSignin: { userInfo },
   } = store.getState();
   return await axios.get(`/api/users/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  });
+};
+
+const apiUpdateUserProfile = async (payload) => {
+  const {
+    userSignin: { userInfo },
+  } = store.getState();
+  return await axios.put("/api/users/profile", payload, {
     headers: {
       Authorization: `Bearer ${userInfo.token}`,
     },
@@ -84,6 +97,23 @@ export function* detailUser({ payload }) {
   } catch (error) {
     yield put({
       type: USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
+export function* updateUserProfile({ payload }) {
+  try {
+    const { data } = yield call(apiUpdateUserProfile, payload);
+    yield put({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
+    yield put({ type: USER_SIGNIN_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    yield put({
+      type: USER_UPDATE_PROFILE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

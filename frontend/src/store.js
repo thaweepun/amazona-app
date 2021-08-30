@@ -12,6 +12,12 @@ import {
   userSigninReducer,
   userRegisterReducer,
   userDetailsReducer,
+  userUpdateProfileReducer,
+  userUpdateReducer,
+  userListReducer,
+  userDeleteReducer,
+  userTopSellerListReducer,
+  userAddressMapReducer,
 } from "./reducers/UserReducers";
 import rootSaga from "./saga";
 import { orderCreateReducer, orderDetailReducer, orderMineListReducer, orderPayReducer } from "./reducers/OrderReducers";
@@ -44,6 +50,12 @@ const reducer = combineReducers({
   orderPay: orderPayReducer,
   orderMineList : orderMineListReducer,
   userDetails : userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
+  userUpdate : userUpdateReducer,
+  userList : userListReducer,
+  userDelete : userDeleteReducer,
+  userTopSellerList : userTopSellerListReducer,
+  userAddressMap : userAddressMapReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
